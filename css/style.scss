@@ -1,0 +1,141 @@
+@import "./mixin";
+@import "./variable";
+@import "./font";
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    word-break: keep-all;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+    z-index: 3;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    #container {
+        position: relative;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: center;
+        width: 90%;
+        height: 100%;
+        @include bg;
+        header {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            justify-content: center;
+            p {
+                @include title;
+                span {
+                    font-family: "yg-jalnan";
+                    font-size: 4rem;
+                    letter-spacing: 1px;
+                    background: linear-gradient(to right top, #ff5722, #ffeb3b, #ff5722);
+                    color: transparent;
+                    // -webkit-background-clip: text;
+                    width: 5em;
+                    display: inline-block;
+                    box-sizing: none;
+                    -webkit-text-stroke: 3px #000;
+                }
+            }
+        }
+        section {
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-content: space-around;
+            h1 {
+                @include title;
+            }
+            ul.Lotto {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                li {
+                    margin: 0 4px;
+                    width: 70px;
+                    height: 70px;
+                    text-align: center;
+                    border-radius: 50%;
+                    font-size: 40px;
+                    font-weight: bold;
+                    color: #333;
+                    -webkit-text-stroke: 1px #fff;
+                    border: 3px solid #fff;
+                    opacity: 0;
+                    @include animation (fadeIn, 2s, 1s);
+                    animation-fill-mode: forwards;
+                }
+                li:nth-of-type(odd) {
+                    background: #f44336;
+                }
+                li:nth-of-type(even) {
+                    background: #ffc107;
+                }
+                li:last-child {
+                    background: #2196f3;
+                    animation-delay: 9s;
+                }
+                @for $i from 1 to 7 {
+                    .item0#{($i)} {
+                        animation-delay: $i + 1s;
+                    }
+                }
+            }
+            button {
+                width: $btnWidth;
+                font-family: "yg-jalnan";
+                display: flex;
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+                @include btn__split($colorPrimary, $colorSecondary, $black);
+            }
+        }
+    }
+    &::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        opacity: 0.2;
+        background-image: url("/img/lotto_bg.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+        z-index: 0;
+        clear: both;
+    }
+}
+
+@include mobile {
+    header {
+        padding-top: 0;
+    }
+}
+
+@include tablet {
+    header {
+        padding-top: 0;
+    }
+}
+
+@include desktop {
+    header {
+        padding-top: 100px;
+    }
+}

@@ -1,0 +1,120 @@
+@mixin bg {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 5px 10px #666;
+}
+
+@mixin animation ($name, $delay, $duration) {
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $name;
+}
+
+@mixin keyframe ($name) {
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@include keyframe (fadeIn) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+//color/ui color variables
+$white: #ececec;
+$black: #111111;
+$red1: #e74c3c;
+$red2: #c92918;
+$colorPrimary: $red1;
+$colorSecondary: $red2;
+$cubic-bezier: cubic-bezier(0, -0.5, 0.1, 0.5);
+$btnWidth:400px;
+$btnHeight:50px;
+//split button mixin
+@mixin btn__split($foregroundColor, $backgroundColor, $textColor) {
+    button.btn {
+        height: #{($btnHeight)-0px};
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 700;
+        border: 0;
+        //display: block;
+        position: relative;
+        letter-spacing: 0.15em;
+        margin: 0 auto;
+        padding: 1rem 2.5rem;
+        background: transparent;
+        outline: none;
+        font-size: 28px;
+        color: $textColor;
+        transition: all 0.5s $cubic-bezier 0.15s;
+        &::after,
+        &::before {
+            border: 0;
+            content: "";
+            position: absolute;
+            height: 10px;
+            width: 10px;
+            transition: all 0.5s $cubic-bezier;
+            z-index: -2;
+            border-radius: 50%;
+            //animation: grow 1s infinite;
+        }
+        &::before {
+            border: 0;
+            background-color: $backgroundColor;
+            top: 0;
+            left: 0;
+            animation: topAnimation 3s infinite alternate;
+        }
+        &::after {
+            background-color: $foregroundColor;
+            bottom: 0;
+            right: 0;
+            animation: bottomAnimation 3s infinite alternate;
+        }
+        &:hover {
+            color: white;
+            &::before,
+            &::after {
+                top: 0;
+                //transform: skewx(-10deg);
+                height: 100%;
+                width: 100%;
+                border-radius: 0;
+                animation: none;
+            }
+            &::after {
+                left: 0rem;
+            }
+            &::before {
+                top: 0.5rem;
+                left: 0.35rem;
+            }
+        }
+    }
+}
+
+@keyframes topAnimation {
+    from {
+        transform: translate(0rem, 0);
+    }
+    to {
+        transform: translate(0rem, $btnHeight);
+    }
+}
+
+@keyframes bottomAnimation {
+    from {
+        transform: translate(0rem, 0);
+    }
+    to {
+        transform: translate(-$btnWidth, 0);
+    }
+}
+
+@include btn__split($colorPrimary, $colorSecondary, $black);

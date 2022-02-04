@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "yg-jalnan";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@mixin title {
+    width: 80%;
+    border-radius: 110px;
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 1rem 0;
+    letter-spacing: -1px;
+    font-style: italic;
+}
